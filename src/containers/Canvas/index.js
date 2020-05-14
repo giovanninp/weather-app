@@ -1,6 +1,7 @@
-import React,{useState, useEffect} from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native';
-import Maps from '../../components/common/Maps';
+import React,{useState, useEffect} from "react";
+import {View, Text, StyleSheet, Button} from "react-native";
+import Maps from "../../components/common/Maps";
+import styles from "./style";
 
 const DEFAULT_COORDS = {
     region: {
@@ -10,7 +11,7 @@ const DEFAULT_COORDS = {
         longitudeDelta: 0.0421,
     },
     marker:{
-        title:'Local',
+        title:"Local",
         data: {
             latitude: -8.0522404,
             longitude: -34.9286096,
@@ -19,13 +20,11 @@ const DEFAULT_COORDS = {
 }
 
 export default function Canvas() {
-    const [coords,setCoords] = useState(DEFAULT_COORDS);
-
     const [region,setRegion] = useState(DEFAULT_COORDS.region);
     const [marker,setMarker] = useState(DEFAULT_COORDS.marker);
 
     const SubmitFab = () => {
-        return <Button title='Add local' onPress={() => alert('hello')} />
+        return <Button title="Submit Position" onPress={() => alert("hello")} />
     }
 
     return(
@@ -34,23 +33,12 @@ export default function Canvas() {
                 <View style={styles.fab}>
                     <SubmitFab />
                 </View>
-                <Maps coords={{marker,region}} setters={{setRegion,setMarker}} />
+                <Maps 
+                coords={{marker,region}} 
+                setters={{setRegion,setMarker}} 
+                />
             </View>
         </View>
     )
 }
 
-const styles = StyleSheet.create({
-    container:{
-        flex:1
-    },
-    maps:{
-        width:'100%',
-        flex:1,
-        zIndex:0
-    },
-    fab:{
-        zIndex:2
-        
-    }
-})
