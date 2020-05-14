@@ -1,43 +1,39 @@
 import React from "react";
-import { View, StyleSheet, Button } from "react-native";
+import { View, StyleSheet } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+import styles from "./style";
 
 export default ({setters,coords}) => {
 
+    const { setRegion,setMarker } = setters;
+    const { region, marker } = coords;
+
     function handleChangeMarker(event) {
-        let newMarker = coords.marker;
+        let newMarker = marker;
         newMarker.data = event.x;
-        console.log(newMarker);
-        setters.setMarker(newMarker);
+        setMarker(newMarker);
     };
+
+    function handleChangeRegion(region) {
+        handleChangeMarker({x : {latitude:region.latitude,longitude:region.longitude}})
+        setRegion(region);
+    }
 
     return(
         <View style={styles.container}>
             <MapView
                 style={styles.map}
                 provider={PROVIDER_GOOGLE}
-                region={coords.region}
+                onRegionChangeComplete={handleChangeRegion}
+                // region={region}
             >
-                <Marker draggable
-                title={"Local"}
-                coordinate={coords.marker.data} 
+                <Marker 
+                draggable
+                title={marker.title}
+                coordinate={marker.data} 
                 onDragEnd={(e) => handleChangeMarker({x: e.nativeEvent.coordinate})}
                 />
             </MapView>
         </View>
     )
 };
-
-const styles = StyleSheet.create({
-    container: {
-        ...StyleSheet.absoluteFillObject,
-        height: "100%",
-        width: "100%",
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-    },
-    map: {
-        ...StyleSheet.absoluteFillObject,
-        zIndex:1
-    },
-});
