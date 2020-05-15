@@ -2,6 +2,8 @@ import React,{useState, useEffect} from "react";
 import {View, Text, StyleSheet, Button} from "react-native";
 import Maps from "../../components/common/Maps";
 import styles from "./style";
+import {getByCoords} from "../../services/open_weather";
+import meteoElement from "../../components/utils/meteoElement";
 
 const DEFAULT_COORDS = {
     region: {
@@ -23,8 +25,19 @@ export default function Canvas() {
     const [region,setRegion] = useState(DEFAULT_COORDS.region);
     const [marker,setMarker] = useState(DEFAULT_COORDS.marker);
 
+    function handleGetWeather() {
+        console.log('Requested')
+        const result = getByCoords(marker.data.latitude,marker.data.longitude)
+            .then(response => {
+                const newEl = meteoElement.create(null,response.data)
+                console.log("newEl",newEl);
+            })
+        // const newEl = result;
+        // console.log("newel",newEl);
+    }
+
     const SubmitFab = () => {
-        return <Button title="Submit Position" onPress={() => alert("hello")} />
+        return <Button title="Submit Position" onPress={handleGetWeather} />
     }
 
     return(
