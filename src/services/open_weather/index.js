@@ -6,4 +6,4 @@ export async function getByCoords(lat,lon){
 
 export async function getByCityName(name) {
     return await axios.get(`?q=${name}&appid=${api_key}`)
-}
+};

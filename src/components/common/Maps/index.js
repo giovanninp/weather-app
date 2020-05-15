@@ -4,7 +4,6 @@ import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import styles from "./style";
 
 export default ({setters,coords}) => {
-
     const { setRegion,setMarker } = setters;
     const { region, marker } = coords;
 
@@ -25,7 +24,7 @@ export default ({setters,coords}) => {
                 style={styles.map}
                 provider={PROVIDER_GOOGLE}
                 onRegionChangeComplete={handleChangeRegion}
-                // region={region}
+                region={region}
             >
                 <Marker 
                 draggable
