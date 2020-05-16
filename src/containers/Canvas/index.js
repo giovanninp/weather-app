@@ -7,7 +7,8 @@ import meteoElement from "../../components/utils/meteoElement";
 // import Geolocation from "@react-native-community/geolocation";
 import deviceLocation from "../../components/utils/deviceLocation";
 
-// const geo = Geolocation.setRNConfiguration(config); 
+import {FAB} from "react-native-paper";
+import { useSelector, useDispatch } from "react-redux";
 
 const DEFAULT_COORDS = {
     region: {
@@ -17,7 +18,7 @@ const DEFAULT_COORDS = {
         longitudeDelta: 0.0421,
     },
     marker:{
-        title:"Local",
+        title:"Loding...",
         data: {
             latitude: -8.0522404,
             longitude: -34.9286096,
@@ -27,75 +28,60 @@ const DEFAULT_COORDS = {
 }
 
 export default function Canvas() {
+    const dispatch = useDispatch();
     const [region,setRegion] = useState(DEFAULT_COORDS.region);
     const [marker,setMarker] = useState(DEFAULT_COORDS.marker);
-    const [geoPermission,setGeoPermission] = useState(false);
-    const [devicePos,setDevicePos] = useState(DEFAULT_COORDS.device);
+    const [actualMeteo,setActualMeteo] = useState({});
+    const device = useSelector(state => state.device);
+    const favourites = useSelector(state => state.session.favourites);
 
-    function handleGetWeather() {
+    function handleAddFavourite() {
+        const exists = favourites.some(fav => (
+            fav.title === actualMeteo.title
+        ))
+        if(!exists) {
+            let newFavourites = favourites;
+            newFavourites.push(actualMeteo);
+            dispatch({type:"UPDATE_SESSION_FAVOURITES",favourites:newFavourites})
+        }
+    }
+
+    async function handleGetWeather(newMarker) {
         console.log('Requested')
-        const result = getByCoords(marker.data.latitude,marker.data.longitude)
+        await getByCoords(newMarker.data.latitude,newMarker.data.longitude)
             .then(response => {
-                const newEl = meteoElement.create(null,response.data);
-                alert(response.data.name);
+                
+                const el = meteoElement.create(null,response.data);
+                console.log("meteo",el);
+                setActualMeteo(el);
+                let final = newMarker;
+                final.title = el.title;
+                setMarker(final);
             });
-    }
-    
-    function handleGetCurrentPosition() {
-        deviceLocation.getPosition(setDevicePos);
-    }
-
-    function handlePointDevicePosition() {
-        console.log("device",devicePos);
-        const { latitude, longitude } = devicePos;
-        console.log("device2",{latitude,longitude});
-        let newMarker = marker;
-        newMarker.data = {
-            latitude,
-            longitude
-        };
-        setMarker(newMarker);
-    }
-
-    const DevicePositionFab = () => {
-        return (
-            <View style={styles.submitBtn}>
-                <Button title="Dispositivo" onPress={handlePointDevicePosition}/>
-            </View>
-        )
-    } 
+    };
 
     const SubmitFab = () => {
         return(
-            <View style={styles.submitBtn}>
-                <Button title="Submit Position"  onPress={handleGetWeather} />
-            </View>
+            <FAB 
+                label={marker.title ? marker.title : "loading"}
+                icon="weather-cloudy"
+                style={styles.submitBtn}
+                onPress={handleAddFavourite}
+            >
+            </FAB>
             ) 
-    }
-
-
-    useEffect(() => {
-        const permission = deviceLocation.requestPermission()
-            .then(response => setGeoPermission(response));
-
-        if(permission) 
-            handleGetCurrentPosition();
-    },[])
+    };
 
     return(
         <View style={styles.container}>
             <View style={styles.maps}>
                 <View style={styles.fab}>
                     <SubmitFab />
-                    {
-                        geoPermission && devicePos
-                        ? <DevicePositionFab />
-                        : null
-                    }
                 </View>
                 <Maps 
-                coords={{marker,region,devicePos}} 
-                setters={{setRegion,setMarker}} 
+                coords={{marker,region,device}} 
+                setters={{setRegion,setMarker}}
+                submit={handleGetWeather}
                 />
             </View>
         </View>
