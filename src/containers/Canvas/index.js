@@ -1,14 +1,13 @@
-import React,{useState, useEffect} from "react";
-import {View, Text, StyleSheet, Button} from "react-native";
+import React,{useState} from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {View} from "react-native";
 import Maps from "../../components/common/Maps";
 import styles from "./style";
-import {getByCoords} from "../../services/open_weather";
-import meteoElement from "../../components/utils/meteoElement";
-// import Geolocation from "@react-native-community/geolocation";
-import deviceLocation from "../../components/utils/deviceLocation";
+import AddFavouriteButton from "../../components/common/AddFavouriteButton";
+import ReturnButton from "../../components/common/ReturnButton";
 
-import {FAB} from "react-native-paper";
-import { useSelector, useDispatch } from "react-redux";
+import meteoElement from "../../components/utils/meteoElement";
+import {getByCoords} from "../../services/open_weather";
 
 const DEFAULT_COORDS = {
     region: {
@@ -18,7 +17,7 @@ const DEFAULT_COORDS = {
         longitudeDelta: 0.0421,
     },
     marker:{
-        title:"Loding...",
+        title:"Loading...",
         data: {
             latitude: -8.0522404,
             longitude: -34.9286096,
@@ -27,7 +26,7 @@ const DEFAULT_COORDS = {
     device:null
 }
 
-export default function Canvas() {
+export default function Canvas({navigation}) {
     const dispatch = useDispatch();
     const [region,setRegion] = useState(DEFAULT_COORDS.region);
     const [marker,setMarker] = useState(DEFAULT_COORDS.marker);
@@ -60,23 +59,17 @@ export default function Canvas() {
             });
     };
 
-    const SubmitFab = () => {
-        return(
-            <FAB 
-                label={marker.title ? marker.title : "loading"}
-                icon="weather-cloudy"
-                style={styles.submitBtn}
-                onPress={handleAddFavourite}
-            >
-            </FAB>
-            ) 
-    };
-
     return(
         <View style={styles.container}>
             <View style={styles.maps}>
                 <View style={styles.fab}>
-                    <SubmitFab />
+                    <AddFavouriteButton
+                        onPress={handleAddFavourite}
+                        marker={marker}
+                     />
+                </View>
+                <View style={styles.returnFab}>
+                    <ReturnButton navigation={navigation} />
                 </View>
                 <Maps 
                 coords={{marker,region,device}} 
