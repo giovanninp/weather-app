@@ -9,13 +9,19 @@ export default StyleSheet.create({
         flex:1,
         zIndex:0
     },
+    returnFab:{
+        position:"absolute",
+        margin:16,
+        left:8,
+        top:10,
+        zIndex:2
+    },
     fab:{
         position:"absolute",
         bottom:10,
         margin:16,
         right:8,
         zIndex:2,
-        flexDirection:"row",
     },
     submitBtn:{
      marginRight:10
