@@ -24,8 +24,8 @@ const deviceLocation = {
         return false;
     },
     getPosition: (setter) => {
-      return Geolocation.getCurrentPosition((postion => (
-        setter(postion.coords)
+      return Geolocation.getCurrentPosition((position => (
+         setter(position.coords)
       )));
       
     }

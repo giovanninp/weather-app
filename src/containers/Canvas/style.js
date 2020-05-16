@@ -10,21 +10,16 @@ export default StyleSheet.create({
         zIndex:0
     },
     fab:{
+        position:"absolute",
         bottom:10,
-        marginTop:10,
-        marginLeft:10,
-        marginRight:10,
+        margin:16,
+        right:8,
         zIndex:2,
         flexDirection:"row",
     },
     submitBtn:{
-        marginBottom:10,
-        borderRadius:50,
-        overflow:'hidden',
-        flex:1
+     marginRight:10
     },
     devicebtn:{
-        width:30,
-        flex:4
     }
 });

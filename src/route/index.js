@@ -1,27 +1,20 @@
 import React from "react";
 import { View,Text } from "react-native";
-import {Provider} from 'react-redux'
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import {Provider} from "react-redux";
+import { Provider as PaperProvider } from "react-native-paper";
+import Theme from "../theming/theme";
 
-import Home from '../containers/Home';
-import Canvas from '../containers/Canvas';
+import MainNavigation from "./main";
 
-import store from '../store/';
-
-
-const Stack = createStackNavigator();
+import store from '../store';
 
 export default function Route() {
 
     return(
         <Provider store={store}>
-            <NavigationContainer>
-                <Stack.Navigator>
-                    <Stack.Screen name="Home" component={Home} />
-                    <Stack.Screen name="Canvas" component={Canvas} />
-                </Stack.Navigator>
-            </NavigationContainer>
+            <PaperProvider theme={Theme}>
+                <MainNavigation />
+            </PaperProvider>
         </Provider>
     )
 
