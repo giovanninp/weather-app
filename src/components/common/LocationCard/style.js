@@ -3,10 +3,19 @@ import {StyleSheet} from "react-native";
 export default StyleSheet.create({
     container:{
         flex:1,
+        flexDirection:"column"
+    },
+    main:{
+        width:"100%",
+        flex:1,
         flexDirection:"row"
     },
     card:{
         height:193,
+        width:"100%"
+    },
+    openCard:{
+        height:"auto",
         width:"100%"
     },
     textual:{
@@ -25,6 +34,20 @@ export default StyleSheet.create({
     },
     temp:{
         fontSize:36
+    },
+    openContent:{
+        flex:1,
+        flexDirection:"column",
+    },
+    extra: {
+        flex:1,
+        flexDirection:"row"
+    },
+    small:{
+        margin:10,
+    },
+    delete: {
+        width:"100%"
     }
 
 })
