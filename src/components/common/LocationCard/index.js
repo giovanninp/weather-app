@@ -25,7 +25,7 @@ export default function LocationCard({location,navigation}) {
     }
 
     return(
-        <TouchableOpacity onLongPress={() => setOpen(open ? false : true)}>
+        <TouchableOpacity onPress={() => setOpen(open ? false : true)}>
             <Card key={`${location.title}_card`} style={open ? style.openCard : style.card}>
                 <Card.Content>
                     <View style={style.container}>
@@ -36,7 +36,7 @@ export default function LocationCard({location,navigation}) {
                             </View>
                             <View style={style.media}>
                                 <Icon name={icon} size={111}/>
-                                <Text style={style.temp}>{`${(main.temp /  10) ^ 1}º`}</Text>
+                                <Text style={style.temp}>{`${(main.temp /  10) ^ 0}º`}</Text>
                             </View>
                         </View>
                         {
@@ -49,8 +49,12 @@ export default function LocationCard({location,navigation}) {
                                             <Text style={style.description}>{`${main.humidity}%`}</Text>
                                         </View>
                                         <View style={style.small}>
-                                            <Text style={style.description}>Temp. Max</Text>
-                                            <Text style={style.description}>{`${main.humidity}%`}</Text>
+                                            <Text style={style.description}>Max º</Text>
+                                            <Text style={style.description}>{`${(main.temp_max/  10) ^ 0}º`}</Text>
+                                        </View>
+                                        <View style={style.small}>
+                                            <Text style={style.description}>M ºin</Text>
+                                            <Text style={style.description}>{`${(main.temp_min/  10) ^ 0}º`}</Text>
                                         </View>
                                     </View>
                                     <View style={style.delete}>

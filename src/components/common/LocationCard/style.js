@@ -11,7 +11,7 @@ export default StyleSheet.create({
         flexDirection:"row"
     },
     card:{
-        height:193,
+        height:"auto",
         width:"100%"
     },
     openCard:{
