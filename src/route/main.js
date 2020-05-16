@@ -7,6 +7,7 @@ import {withTheme} from "react-native-paper";
 
 import Home from '../containers/Home';
 import Canvas from '../containers/Canvas';
+import Selected from "../containers/Selected";
 
 const Stack = createStackNavigator();
 
@@ -47,6 +48,7 @@ function mainNavigation () {
             <Stack.Navigator screenOptions={{headerShown:false}}>
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Canvas" component={Canvas} />
+                <Stack.Screen name="Selected" component={Selected} />
             </Stack.Navigator>
         </NavigationContainer>
     )
