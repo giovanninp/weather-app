@@ -28,10 +28,18 @@ const DEFAULT_COORDS = {
 
 export default function Canvas({navigation}) {
     const dispatch = useDispatch();
-    const [region,setRegion] = useState(DEFAULT_COORDS.region);
+    const device = useSelector(state => state.device);
+    const [region,setRegion] = useState(device && device.position.latitude ? (
+        {
+            latitude:device.position.latitude,
+            longitude:device.position.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+        }
+    ) : DEFAULT_COORDS.region);
+
     const [marker,setMarker] = useState(DEFAULT_COORDS.marker);
     const [actualMeteo,setActualMeteo] = useState({});
-    const device = useSelector(state => state.device);
     const favourites = useSelector(state => state.session.favourites);
 
     function handleAddFavourite() {

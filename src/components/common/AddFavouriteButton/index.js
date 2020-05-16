@@ -9,7 +9,7 @@ export default function AddFavouriteButton({onPress=null,marker}) {
                 <FAB 
                     disabled
                     label={"Loading"}
-                    icon="weather-cloudy"
+                    icon="av-timer"
                     style={style.fab}
                 >
                 </FAB>
@@ -18,7 +18,7 @@ export default function AddFavouriteButton({onPress=null,marker}) {
                 <FAB 
                     
                     label={marker.title}
-                    icon="weather-cloudy"
+                    icon="plus"
                     style={style.fab}
                     onPress={onPress}
                 >
