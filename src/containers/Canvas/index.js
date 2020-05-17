@@ -50,6 +50,7 @@ export default function Canvas({navigation}) {
             let newFavourites = favourites;
             newFavourites.push(actualMeteo);
             dispatch({type:"UPDATE_SESSION_FAVOURITES",favourites:newFavourites})
+            navigation.navigate("Home");
         }
     }
 
