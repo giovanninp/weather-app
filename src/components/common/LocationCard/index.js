@@ -36,7 +36,7 @@ export default function LocationCard({location,navigation}) {
                             </View>
                             <View style={style.media}>
                                 <Icon name={icon} size={111}/>
-                                <Text style={style.temp}>{`${(main.temp /  10) ^ 0}º`}</Text>
+                                <Text style={style.temp}>{(`${(main.temp )}º`).split(1,3)}</Text>
                             </View>
                         </View>
                         {
@@ -50,11 +50,11 @@ export default function LocationCard({location,navigation}) {
                                         </View>
                                         <View style={style.small}>
                                             <Text style={style.description}>Max º</Text>
-                                            <Text style={style.description}>{`${(main.temp_max/  10) ^ 0}º`}</Text>
+                                            <Text style={style.description}>{`${(main.temp_max)}º`.split(1,3)}</Text>
                                         </View>
                                         <View style={style.small}>
                                             <Text style={style.description}>M ºin</Text>
-                                            <Text style={style.description}>{`${(main.temp_min/  10) ^ 0}º`}</Text>
+                                            <Text style={style.description}>{`${(main.temp_min)}º`.split(1,3)}</Text>
                                         </View>
                                     </View>
                                     <View style={style.delete}>
