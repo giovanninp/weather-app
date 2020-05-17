@@ -16,6 +16,8 @@ const INITIAL_STATE = {
 
 const contents = (state = INITIAL_STATE, action) => {
     switch(action.type){
+        case "UPDATE_SESSION":
+            return {...state, session:action.session}
         case "UPDATE_SESSIONS_CITIES":
             return {
                  ...state, cities: {
